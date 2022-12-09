@@ -1,0 +1,8 @@
+POST http://localhost:5000/products HTTP/1.1
+{
+  "label": "Test",
+  "price": 10,
+  "rating": 4.5,
+  "details": "test details",
+  "imageUrl": ""
+}
