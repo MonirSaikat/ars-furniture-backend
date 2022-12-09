@@ -13,17 +13,15 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.methods.validatePassword = async function(password){
+  return await bcrypt.compareSync(password, this.password);
+};
+
 userSchema.pre('save', async function(next) {
   const salt = await bcrypt.genSalt(10);
-  this.password = bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-
-userSchema.methods.validatePassword = async function(password, next){
-  const matched = await bcrypt.compare(password, this.password);
-  if(matched) next();
-  else throw new Error('Password do not match!');
-};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
