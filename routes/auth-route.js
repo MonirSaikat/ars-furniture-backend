@@ -3,7 +3,7 @@ const { getToken } = require('../middlewares/jwt');
 const { validateRoute } = require('../middlewares/validateRoute');
 const User = require('../models/User');
 
-router.post('/login', validateRoute(['email', 'password']), async (req, res) => {
+router.post('/login', validateRoute(['email', 'password']), async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -24,11 +24,11 @@ router.post('/login', validateRoute(['email', 'password']), async (req, res) => 
       token,
     });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.post('/register', validateRoute(['name', 'email', 'password']), async (req, res) => {
+router.post('/register', validateRoute(['name', 'email', 'password']), async (req, res,next) => {
   try {
     const { name, email, password } = req.body;
     const dupEmail = await User.findOne({ email });
@@ -44,7 +44,7 @@ router.post('/register', validateRoute(['name', 'email', 'password']), async (re
       token,
     });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 

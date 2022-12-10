@@ -4,16 +4,16 @@ const { authToken } = require('../middlewares/jwt');
 const { validateRoute } = require('../middlewares/validateRoute');
 const { isAdmin } = require('../middlewares/acces');
 
-router.get('/', authToken, isAdmin, async (req, res) => {
+router.get('/', authToken, isAdmin, async (req, res, next) => {
   try {
     const reviews = await Review.find().populate('user', '-password');
     res.json(reviews);
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.delete('/:id', authToken, async(req, res) => {
+router.delete('/:id', authToken, async(req, res, next) => {
   try {
     const review = await Review.findById(req.params.id);
 
@@ -26,11 +26,11 @@ router.delete('/:id', authToken, async(req, res) => {
       res.sendStatus(403);
     }
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.post("/", authToken, validateRoute(['text', 'rating']), async (req, res) => {
+router.post("/", authToken, validateRoute(['text', 'rating']), async (req, res, next) => {
   try {
     const review = await Review.create({
       ...req.body,
@@ -39,7 +39,7 @@ router.post("/", authToken, validateRoute(['text', 'rating']), async (req, res) 
 
     res.json(review);
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 

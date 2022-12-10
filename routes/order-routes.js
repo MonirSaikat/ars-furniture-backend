@@ -6,16 +6,16 @@ const { isAdmin } = require('../middlewares/acces');
 
 const router = require('express').Router();
 
-router.get('/', isAdmin, async (req, res) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const orders = await Order.find().populate('user', '-password');
     res.json(orders);
   } catch (error) {
-    res.json({success: false, message: error.message});
+    next(error);
   }
 });
 
-router.post('/', validateRoute(['discount', 'products']), async (req, res) => {
+router.post('/', validateRoute(['discount', 'products']), async (req, res, next) => {
   try {
     const ids = [
       ...req.body.products.map((product) =>
@@ -45,11 +45,11 @@ router.post('/', validateRoute(['discount', 'products']), async (req, res) => {
       }
     })
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.put("/:id/complete", isAdmin, async (req, res) => {
+router.put("/:id/complete", isAdmin, async (req, res, next) => {
   try {
     const id = req.params.id;
     const order = await Order.findById(id);
@@ -57,11 +57,11 @@ router.put("/:id/complete", isAdmin, async (req, res) => {
     await order.save();
     res.json(order);
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.put("/:id/cancel", async (req, res) => {
+router.put("/:id/cancel", async (req, res, next) => {
   try {
     const id = req.params.id;
     const order = await Order.findById(id);
@@ -69,18 +69,18 @@ router.put("/:id/cancel", async (req, res) => {
     await order.save();
     res.json({ success: true, message: 'Order cancelled' });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.delete("/:id", isAdmin, async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res, next) => {
   try {
     const id = req.params.id;
     const order = await Order.findById(id);
     await order.delete();
     res.json({ success: true, message: 'Order deleted!' });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 

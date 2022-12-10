@@ -4,32 +4,32 @@ const { isAdmin } = require('../middlewares/acces');
 const { authToken } = require('../middlewares/jwt');
 const router = require('express').Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const products = await Product.find();
     res.json(products);
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
     const product = await Product.findById(id);
     res.json(product);
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
     await Product.findByIdAndRemove(id);
     res.json({ success: true, id });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    next(error);
   }
 });
 
@@ -38,7 +38,7 @@ router.post(
   authToken,
   isAdmin,
   validateRoute(["label", "price", "imageUrl", "rating"]),
-  (req, res) => {
+  (req, res, next) => {
     const data = req.body;
 
     try {
@@ -51,7 +51,7 @@ router.post(
         res.json(doc);
       });
     } catch (error) {
-      res.json({ success: false, message: error.message });
+      next(error);
     }
   }
 );
