@@ -26,73 +26,52 @@
     <div class="container my-5">
       <h1>ARS Furniture Apis.</h1>
       <h3>Available routes:</h3>
+
+
       <ul>
         <li>
-          <a href="/products">/products</a>
+          Product routes:
           <ul>
-            <li>
-              <strong>Post: </strong>
-              <code
-                >{ label, price, imageUrl, rating }</code
-              >
-              - <small>admin</small>
-            </li>
-            <li>
-              <strong>Delete: </strong>
-              <code>/:id</code>
-              <small> - admin</small>
-            </li>
+            <li>Get: <a href="/products">/products</a></li>
+            <li>Get: <a href="/products/:id">/products/:id</a></li>
+            <li>Post: <a href="/products">/products</a> <code>{ lable, price, imageUrl, rating }</code> <small>admin</small> </li>
+            <li>Delete: <a href="/products/:id">/products/:id</a> - <small>admin</small> </li>
           </ul>
         </li>
 
         <li>
-          <a href="/users">/users</a> -
-          <small>admin</small>
+          User routes:
           <ul>
-            <li>
-              <strong>Post: </strong>
-              <code>{ name, email, password }</code>
-            </li>
-            <li>
-              <strong>Delete: </strong>
-              <code>/:id</code>
-            </li>
+            <li>Get: <a href="/users">/users</a> - admin</li>
+            <li>Post: <a href="/users">/users</a> <code>{ name, email, password }</code> - admin</li>
+            <li>Delete: <a href="/users/:id">/users/:id</a> - admin</li>
           </ul>
         </li>
 
         <li>
-          <a href="/reviews">/reviews</a> -
-          <small>admin</small>
+          Review routes:
           <ul>
-            <li>
-              <strong>Post: </strong>
-              <code>{ text, rating }</code>
-              <small>admin | user</small>
-            </li>
-            <li>
-              <strong>Delete: </strong>
-              <code>/:id</code>
-              <small>admin | user</small>
-            </li>
+            <li>Get: <a href="/reviews">/reviews</a> - admin </li>
+            <li>Post: <a href="/reviews">/reviews</a> <code>{ text, rating }</code> </li>
+            <li>Delete: <a href="/reviews/:id">/reviews/:id</a>  </li>
           </ul>
         </li>
+
         <li>
-          <a href="/auth">/auth</a>
+          Auth routes:
           <ul>
-            <li><a href="/auth/login">/login</a></li>
-            <ul>
-              <li>
-                <strong>Post:</strong>
-                <code>{ email, password }</code>
-              </li>
-            </ul>
-            <li><a href="/auth/register">/register</a></li>
-            <ul>
-              <li>
-                <strong>Post:</strong>
-                <code>{ name, email, password }</code>
-              </li>
-            </ul>
+            <li>Post: <a href="/auth/login">/auth/login</a> <code>{ email, password }</code></li>
+            <li>Post: <a href="/auth/register">/auth/register</a> <code>{ name, email, password }</code></li>
+          </ul>
+        </li>
+
+        <li>Order routes</a>
+          <ul>
+            <li>Get: <a href="/orders">/orders</a> - admin</li>
+            <li>Post: <a href="/orders">/orders</a> <code>{ discount, products: [] }</code></li>
+            <li>Put: <a href="/orders/:id/complete">/orders/:id/complete</a> - admin</li>
+            <li>Put: <a href="/orders/:id/cancel">/orders/:id/cancel</a></li>
+            <li>Delete: <a href="/orders/:id">/orders/:id</a></li>
           </ul>
         </li>
       </ul>
