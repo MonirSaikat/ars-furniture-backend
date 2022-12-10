@@ -38,18 +38,12 @@ router.post(
   authToken,
   isAdmin,
   validateRoute(["label", "price", "imageUrl", "rating"]),
-  (req, res, next) => {
+  async (req, res, next) => {
     const data = req.body;
 
     try {
-      Product.create(data, (err, doc) => {
-        if (err)
-          res.json({
-            success: false,
-            message: err.message,
-          });
-        res.json(doc);
-      });
+      const product = await Product.create(data);
+      res.json(product);
     } catch (error) {
       next(error);
     }
