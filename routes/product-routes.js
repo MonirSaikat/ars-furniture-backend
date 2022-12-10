@@ -15,6 +15,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new Error('Parms id is not valid');
+    }
     const id = req.params.id;
     const product = await Product.findById(id);
     res.json(product);
