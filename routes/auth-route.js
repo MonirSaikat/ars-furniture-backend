@@ -1,7 +1,12 @@
 const router = require('express').Router();
-const { getToken } = require('../middlewares/jwt');
+const { getToken, authToken } = require('../middlewares/jwt');
 const { validateRoute } = require('../middlewares/validateRoute');
 const User = require('../models/User');
+
+router.get('/check', authToken, (req, res, next) => {
+  if(req.user) return res.json({ success: true, user: req.user });
+  next(new Error('No user found'));
+});
 
 router.post('/login', validateRoute(['email', 'password']), async (req, res, next) => {
   try {

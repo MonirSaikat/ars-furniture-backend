@@ -13,6 +13,15 @@ router.get('/', authToken, isAdmin, async (req, res, next) => {
   }
 });
 
+router.get('/site', authToken, async (req, res, next) => {
+  try {
+    const reviews = await Review.find().populate('user', '-password');
+    res.json(reviews);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.delete('/:id', authToken, async(req, res, next) => {
   try {
     const review = await Review.findById(req.params.id);
