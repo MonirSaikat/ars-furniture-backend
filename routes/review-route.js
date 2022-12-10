@@ -13,7 +13,7 @@ router.get('/', authToken, isAdmin, async (req, res, next) => {
   }
 });
 
-router.get('/site', authToken, async (req, res, next) => {
+router.get('/site', async (req, res, next) => {
   try {
     const reviews = await Review.find().populate('user', '-password');
     res.json(reviews);
