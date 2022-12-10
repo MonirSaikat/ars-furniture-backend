@@ -12,7 +12,7 @@ app.use(express.json({ }));
 app.use(express.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 5000);
 app.use(express.static("public"));
-app.use(errorHandler);
+
 
 // ROUTES
 app.use('/products', require('./routes/product-routes'));
@@ -25,6 +25,7 @@ app.use(
   isAdmin,
   require("./routes/user-routes")
 );
+app.use(errorHandler);
 
 app.listen(app.get('port'), () => {
   console.log(`🔥🔥 Server running on PORT : ${app.get('port')}`);
