@@ -10,7 +10,7 @@ router.get('/', authToken, isAdmin, async (req, res, next) => {
     res.json(reviews);
   } catch (error) {
     next(error);
-  }
+  } 
 });
 
 router.get('/site', async (req, res, next) => {

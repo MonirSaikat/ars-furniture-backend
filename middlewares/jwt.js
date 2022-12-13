@@ -13,7 +13,6 @@ const getToken = (user) => {
 };
 
 const authToken =(req, res, next) => {
-  console.log(req.headers);
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
 
