@@ -27,8 +27,4 @@ app.use(
 );
 app.use(errorHandler);
 
-app.listen(app.get('port'), () => {
-  console.log(`🔥🔥 Server running on PORT : ${app.get('port')}`);
-});
-
-exports.server = app;
+exports.app = app;
