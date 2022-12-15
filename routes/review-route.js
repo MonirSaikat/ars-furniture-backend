@@ -22,14 +22,6 @@ router.get('/site', async (req, res, next) => {
   }
 });
 
-router.get('/site', async (req, res, next) => {
-  try {
-    const reviews = await Review.find().populate('user', '-password');
-    res.json(reviews);
-  } catch (error) {
-    next(error);
-  }
-});
 
 router.delete('/:id', authToken, async(req, res, next) => {
   try {
@@ -55,7 +47,7 @@ router.post("/", authToken, validateRoute(['text', 'rating']), async (req, res, 
       user: req.user._id
     });
 
-    res.json(review);
+    res.status(201).json(review);
   } catch (error) {
     next(error);
   }
