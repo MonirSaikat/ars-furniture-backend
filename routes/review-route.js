@@ -10,7 +10,16 @@ router.get('/', authToken, isAdmin, async (req, res, next) => {
     res.json(reviews);
   } catch (error) {
     next(error);
-  } 
+  }
+});
+
+router.get('/site', authToken, isAdmin, async (req, res, next) => {
+  try {
+    const reviews = await Review.find({ featured: true }).populate('user', '-password');
+    res.json(reviews);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/site', async (req, res, next) => {
