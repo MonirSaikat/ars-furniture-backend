@@ -27,4 +27,4 @@ app.use(
 );
 app.use(errorHandler);
 
-exports.app = app;
+module.exports = app;
