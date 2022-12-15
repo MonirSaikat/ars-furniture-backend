@@ -4,6 +4,10 @@ const { Schema } = mongoose;
 const reviewSchema = new Schema({
   text: String,
   rating: Number,
+  featured: {
+    type: Boolean,
+    default: false
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
