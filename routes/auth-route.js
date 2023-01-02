@@ -47,6 +47,7 @@ router.post('/register', validateRoute(['name', 'email', 'password']), async (re
       success: true,
       user,
       token,
+      isAdmin: true // TODO: now add all users as admin
     });
   } catch (error) {
     next(error);
