@@ -39,15 +39,14 @@ router.post('/register', validateRoute(['name', 'email', 'password']), async (re
     const dupEmail = await User.findOne({ email });
     if (dupEmail) return res.json({ success: false, message: "Email is already exist!", });
 
-    const user = new User({ name, email, password });
+    const user = new User({ name, email, password, isAdmin });  // TODO: now add all users as admin
     await user.save();
     const token = getToken(user);
 
     res.json({
       success: true,
       user,
-      token,
-      isAdmin: true // TODO: now add all users as admin
+      token
     });
   } catch (error) {
     next(error);
