@@ -11,6 +11,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  address: { type: String, default: '' }
 });
 
 userSchema.methods.validatePassword = async function(password){
